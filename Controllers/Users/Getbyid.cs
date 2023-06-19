@@ -1,11 +1,15 @@
 using core7_cassandra_angular14.Entities;
 using core7_cassandra_angular14.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Retrieve User ID")]
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class Getbyid : ControllerBase {
 
         private IUserService _userService;

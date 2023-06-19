@@ -5,19 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Products
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Add Product")]
     [ApiController]
     [Route("[controller]")]
-    public class Add : ControllerBase {
+    public class AddProduct : ControllerBase {
 
         private IProductService _productService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Add> _logger;
-        public Add(
+        private readonly ILogger<AddProduct> _logger;
+        public AddProduct(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IProductService productService,
-            ILogger<Add> logger
+            ILogger<AddProduct> logger
             )
         {   
             _configuration = configuration;  

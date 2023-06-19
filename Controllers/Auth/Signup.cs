@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace core7_cassandra_angular14.Controllers.Auth
 {    
+    [ApiExplorerSettings(GroupName = "Sign-up or Account Registration")]
     [ApiController]
     [Route("[controller]")]
     public class Signup : ControllerBase {

@@ -1,11 +1,15 @@
 using core7_cassandra_angular14.Models;
 using core7_cassandra_angular14.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users 
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Upload User Image")]
     [ApiController]
-    [Route("[controller]")]    
+    [Route("[controller]")]   
+    [Authorize] 
     public class Uploadpic : ControllerBase {
         private IUserService _userService;
         private readonly IConfiguration _configuration;  

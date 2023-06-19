@@ -5,18 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Products
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Update Product")]
     [ApiController]
     [Route("[controller]")]
-    public class Update : ControllerBase {
+    public class UpdateProduct : ControllerBase {
         private IProductService _productService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Update> _logger;
-        public Update(
+        private readonly ILogger<UpdateProduct> _logger;
+        public UpdateProduct(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IProductService productService,
-            ILogger<Update> logger
+            ILogger<UpdateProduct> logger
             )
         {   
             _configuration = configuration;  
@@ -24,6 +26,7 @@ namespace core7_cassandra_angular14.Controllers.Products
             _logger = logger;
             _env = env;
         }  
+        [HttpGet("/updateproduct")]
         public IActionResult updateProduct() {
             return Ok();
         }

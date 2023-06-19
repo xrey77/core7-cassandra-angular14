@@ -5,20 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users
 {
-    [Authorize]
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "List All Users")]
     [ApiController]
     [Route("[controller]")]
-    public class Getall : ControllerBase {
+    [Authorize]
+    public class GetallUsers : ControllerBase {
 
         private IUserService _userService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Getall> _logger;
-        public Getall(
+        private readonly ILogger<GetallUsers> _logger;
+        public GetallUsers(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IUserService userService,
-            ILogger<Getall> logger
+            ILogger<GetallUsers> logger
             )
         {   
             _configuration = configuration;  

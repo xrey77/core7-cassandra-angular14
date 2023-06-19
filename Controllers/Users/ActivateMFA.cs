@@ -1,12 +1,16 @@
 using core7_cassandra_angular14.Models;
 using core7_cassandra_angular14.Services;
 using Google.Authenticator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Enable or Disable 2-Factor Authentication")]
     [ApiController]
-    [Route("[controller]")]    
+    [Route("[controller]")]
+    [Authorize]
     public class ActivateMFA : ControllerBase {
         private IUserService _userService;
         private readonly IConfiguration _configuration;  
@@ -24,7 +28,6 @@ namespace core7_cassandra_angular14.Controllers.Users
             _logger = logger;
             _env = env;
         }  
-
         [HttpPut("/api/enablemfa/{id}")]
         public IActionResult EnableMFA(int id,MfaModel model) {
             if (model.Twofactorenabled == true) {

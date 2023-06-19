@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Products
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "List All Products")]
     [ApiController]
     [Route("[controller]")]    
     public class ListProducts : ControllerBase {

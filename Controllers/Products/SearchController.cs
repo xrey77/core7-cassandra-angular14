@@ -6,19 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Products
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Search Product Category")]
     [ApiController]
     [Route("[controller]")]    
-    public class Search : ControllerBase {
+    public class SearchController : ControllerBase {
 
         private IProductService _productService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Search> _logger;
-        public Search(
+        private readonly ILogger<SearchController> _logger;
+        public SearchController(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IProductService productService,
-            ILogger<Search> logger
+            ILogger<SearchController> logger
             )
         {   
             _configuration = configuration;  

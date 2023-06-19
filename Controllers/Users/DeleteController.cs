@@ -1,21 +1,25 @@
 using core7_cassandra_angular14.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Delete User")]
     [ApiController]
     [Route("[controller]")]    
-    public class Delete : ControllerBase {
+    [Authorize]
+    public class DeleteController : ControllerBase {
 
         private IUserService _userService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Delete> _logger;
-        public Delete(
+        private readonly ILogger<DeleteController> _logger;
+        public DeleteController(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IUserService userService,
-            ILogger<Delete> logger
+            ILogger<DeleteController> logger
             )
         {   
             _configuration = configuration;  

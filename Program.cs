@@ -1,29 +1,42 @@
 using System.Text;
 using core7_cassandra_angular14.Services;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSpaStaticFiles(options => { options.RootPath = "clientapp/dist"; });
-builder.Services.AddSwaggerGen();
-// builder.Services.AddSwaggerGen(c =>
-// {
-//     c.SwaggerDoc("v1", new() { Title = "Qatar Foundation API", Version = "v1" });
-// });
-
 builder.Services.AddCors();
 
+builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "QATAR FOUNDATION", Description="Rest API Documentation", Version = "v1" });
+        c.TagActionsBy(api =>
+            {
+                if (api.GroupName != null)
+                {
+                    return new[] { api.GroupName };
+                }
+
+                var controllerActionDescriptor = api.ActionDescriptor as ControllerActionDescriptor;
+                if (controllerActionDescriptor != null)
+                {
+                    return new[] { controllerActionDescriptor.ControllerName };
+                }
+
+                throw new InvalidOperationException("Unable to determine tag for endpoint.");
+            });
+        c.DocInclusionPredicate((name, api) => true);        
+    });
+builder.Services.AddControllers();
+builder.Services.AddSpaStaticFiles(options => { options.RootPath = "clientapp/dist"; });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 // ============VALIDATE IF JWT TOKEN HAS BEEN GENERATED===================================
-builder.Services.AddAuthentication().AddJwtBearer(options =>
+builder.Services.AddAuthentication().AddJwtBearer(options => 
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -35,18 +48,17 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 //==========================================================================================
-
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/index.html", "QATAR FOUNDATION API v1"));
     app.UseHsts();
+    // app.UseSwaggerAuthorized();    
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "");
+    });    
 }
 // ==========VALIDATE IF END POINT IS AUTHORIZED================
 app.UseStatusCodePages(async context =>
@@ -67,14 +79,9 @@ app.UseStatusCodePages(async context =>
         }
     });
 //============================================================
-
-
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 app.UseSpaStaticFiles();
-app.UseAuthorization();
 app.UseCors( options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.UseStaticFiles(new StaticFileOptions()
@@ -82,7 +89,6 @@ app.UseStaticFiles(new StaticFileOptions()
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
     RequestPath = new PathString("/Resources")
 });
-
 
 app.UseSpa(spa =>
      {
@@ -92,9 +98,5 @@ app.UseSpa(spa =>
              spa.Options.SourcePath = "dist";
      });
 
-
-
-
 app.MapControllers();
-
 app.Run();

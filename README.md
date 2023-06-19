@@ -9,4 +9,5 @@ REQUIREMENTS
 5. Jquery 3.5.1
 6. Google Authenticator
 7. JWT
+8. Swagger Docs
 

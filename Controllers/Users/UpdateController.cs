@@ -1,21 +1,27 @@
 using core7_cassandra_angular14.Entities;
 using core7_cassandra_angular14.Models;
 using core7_cassandra_angular14.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Users
 {
-    public class Update : ControllerBase {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Update User")]
+    [ApiController]
+    [Route("[controller]")]
+    [Authorize]
+    public class UpdateController : ControllerBase {
 
         private IUserService _userService;
         private readonly IConfiguration _configuration;  
         private readonly IWebHostEnvironment _env;
-        private readonly ILogger<Update> _logger;
-        public Update(
+        private readonly ILogger<UpdateController> _logger;
+        public UpdateController(
             IConfiguration configuration,            
             IWebHostEnvironment env,
             IUserService userService,
-            ILogger<Update> logger
+            ILogger<UpdateController> logger
             )
         {   
             _configuration = configuration;  

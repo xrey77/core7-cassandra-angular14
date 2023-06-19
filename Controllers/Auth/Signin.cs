@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace core7_cassandra_angular14.Controllers.Auth
 {
+    [ApiExplorerSettings(GroupName = "Sign-in to User Account")]
     [ApiController]
     [Route("[controller]")]
     public class Signin : ControllerBase {

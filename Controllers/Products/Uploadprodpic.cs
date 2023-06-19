@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace core7_cassandra_angular14.Controllers.Products
 {
+    // [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(GroupName = "Upload Product Image")]
     [ApiController]
     [Route("[controller]")]
     public class Uploadprodpic : ControllerBase {
@@ -20,6 +22,7 @@ namespace core7_cassandra_angular14.Controllers.Products
             _session = _cluster.Connect("core7");
             _mapper = new Mapper(_session);
         }
+        [HttpPost("/uplooadproductpic")]
         public IActionResult UploadPicture() {
             return Ok();
         }
