@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MfaService } from 'src/app/services/mfa.service';
 
+declare var $:any;
+
 @Component({
   selector: 'app-mfa',
   templateUrl: './mfa.component.html',
@@ -23,8 +25,24 @@ export class MfaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  mfaClose(event: any) {
+    event.preventDefault();
+    sessionStorage.removeItem('USERID')
+    sessionStorage.removeItem('USERNAME')
+    sessionStorage.removeItem('TOKEN')
+    sessionStorage.removeItem('USERPIC')
+    this.mfaMessage = '';
+    $("#mfareset").click();
+  }
 
   submitMfaForm(mfaForm:NgForm) {
+    if (mfaForm.value.otp === "") {
+      this.mfaMessage = "Enter 6 digits OTP Code.";
+      window.setTimeout(() => {
+        this.mfaMessage = '';
+      }, 3000);
+      return;
+    }
     if (mfaForm.valid) {
       this.mfaData = mfaForm.value;
       if (this.mfaData.otp === '') {

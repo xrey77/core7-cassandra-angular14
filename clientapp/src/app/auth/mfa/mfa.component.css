@@ -1,3 +1,6 @@
 .fsize-12 {
     font-size: 12px;
 }
+#mfareset {
+    visibility: hidden;
+}

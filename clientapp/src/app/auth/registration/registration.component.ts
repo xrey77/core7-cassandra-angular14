@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from '../../services/registration.service';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
+declare var $:any;
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -19,7 +21,34 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  registrationClose(event: any) {
+    event.preventDefault();
+    $("#regiter-reset").click();
+  }
+
   submitRegistrationForm(registrationForm:NgForm) {
+    if (registrationForm.value.firstname === "" || 
+        registrationForm.value.lasttname === "" ||
+        registrationForm.value.email === "" ||
+        registrationForm.value.mobile === "" ||
+        registrationForm.value.username === "" ||
+        registrationForm.value.password === "") {
+          this.registrationMessage = "Please fill up and complete registration form.";
+          window.setTimeout(() => {
+            this.registrationMessage = "";
+          }, 3000);
+          return;
+        }
+
+      const xmail = registrationForm.value.email.toString();
+     if (!xmail.includes('@') || !xmail.includes('.')) {
+        this.registrationMessage = "Invalid Email Address format.";
+        window.setTimeout(() => {
+          this.registrationMessage = "";
+        }, 3000);
+        return;
+      }
+
     if(registrationForm.valid)
     {
        this.registrationData = registrationForm.value;

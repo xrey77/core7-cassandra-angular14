@@ -75,10 +75,10 @@ namespace core7_cassandra_angular14.Controllers.Auth
                         token = tokenString
                         });
             }
-            return NotFound(new {statuscode=404 ,message="Username not found, please register first..."});
+            return Ok(new {statuscode=404 ,message="Username not found, please register first..."});
 
-          } catch(Exception ex) {
-            return NotFound(new {statuscode = 404, message= ex.Message});
+          } catch(Exception) {
+            return Ok(new {statuscode = 404, message= "Username not found, please register first..."});
           }
         }
     }

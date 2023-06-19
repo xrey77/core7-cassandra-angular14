@@ -5,3 +5,6 @@
 .hide-mfa {
     visibility: hidden;
 }
+.hide-reset {
+    visibility: hidden;
+}

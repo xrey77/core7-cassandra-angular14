@@ -23,7 +23,19 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closeLoginForm(event: any) {
+    event.preventDefault();    
+    this.loginMessage = '';
+    $("#reset").click();
+  }
   submitLoginForm(loginForm:NgForm) {
+    if (loginForm.value.username === "" || loginForm.value.pasword === "") {      
+      this.loginMessage = "Invalid credentials.";
+      window.setTimeout(() => {
+        this.loginMessage = '';
+      }, 3000);
+      return;
+    }
     if(loginForm.valid)
     {
        this.loginData = loginForm.value;
