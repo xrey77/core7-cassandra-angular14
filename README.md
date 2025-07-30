@@ -1,4 +1,4 @@
-# core7-cassandra-angular14
+# .Net Core 7 CLI, Cassandra Database and Angular 14 CLI
 
 REQUIREMENTS
 ============
